@@ -1,1 +1,2 @@
 # Pathways
+A student uploads their transcript and resume, selects their major and interests, and in under 10 seconds receives personalized career pathways, skill-gap analysis, project recommendations, certifications, and internship targets.
