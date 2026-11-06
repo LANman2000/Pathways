@@ -1,10 +1,4 @@
-# Account access handoff
-
-## Boundary of this contribution
-
-This deliverable covers welcome, create account, sign in, validation/error messages, session restoration, and sign out. It ends at the “You’re signed in” confirmation after server-confirmed authentication.
-
-The next developer owns the transition to the existing onboarding flow. Major selection, profile setup, interests, transcript/resume uploads, analysis, career recommendations, dashboards, and later screens are outside this contribution. The authenticated confirmation is a deliberate stopping point, not a completed onboarding flow.
+# Account access
 
 ## Project structure
 
