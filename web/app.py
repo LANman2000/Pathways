@@ -112,6 +112,8 @@ def analyze():
         goals=goals,
         skills=skills,
         volunteer_experience=volunteer_experience,
+        transcript_text=request.form.get("transcript_text", ""),
+        resume_text=request.form.get("resume_text", ""),
         certifications=certifications
     )
 

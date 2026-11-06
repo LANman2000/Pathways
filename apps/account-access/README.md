@@ -18,7 +18,7 @@ npm install
 npm run dev
 ```
 
-Open http://localhost:5173. The command starts the React app, the loopback-only authentication service, and the Flask analysis API. Choose Sign up to create a local account, or Sign in to return. Analysis requests are proxied through the auth service and require the signed-in session cookie. No external registration or database installation is required.
+Open http://localhost:5173. The command starts the React app, the loopback-only authentication service, and the Flask analysis API. From the welcome screen choose **Open the interactive career demo**, or after sign-up choose **Start your career profile**. The demo screens are served from `HTML/`; sign-up/sign-in, questionnaire answers, PDF uploads, analysis, recommendation selection, and saving a pathway are connected. Analysis and saved pathways require the signed-in session. No external registration or database installation is required.
 
 ```sh
 npm test
@@ -32,7 +32,7 @@ calling Groq.
 
 ## Scope and storage
 
-Welcome, sign-up, sign-in, session restoration, inline errors, and sign-out are implemented. Successful authentication still stops at a signed-in confirmation; the existing career-profile form is not connected or redesigned. The protected `POST /api/analyze` endpoint is available for that future UI and requires the account session.
+The React account screen provides sign-up, sign-in, session restoration, inline errors, and sign-out. The linked interactive HTML demo contains the profile questions, PDF uploads, recommendations, and dashboard. Interim answers and selected files remain in this browser session until analysis is submitted; accounts and saved pathways persist in SQLite.
 
 Accounts persist in `server/data/accounts.sqlite`, excluded from source archives and Git. Passwords are salted and hashed using scrypt (N=131072, r=8, p=1). Session tokens are random, stored hashed, expire after eight hours, and are delivered through an HttpOnly, SameSite=Strict cookie. Logout revokes the server-side session. Login and signup requests have validation, a local IP attempt limit, and an exact-origin check. Nothing is stored in browser localStorage.
 
@@ -46,6 +46,7 @@ This is a local development implementation, not a public authentication deployme
 - `server/auth.py`: local SQLite accounts and cookie sessions.
 - `server/test_auth.py`: integration tests using a temporary database.
 - `scripts/dev.mjs`: starts and stops the frontend, auth service, and analysis API.
+- `../../HTML/`: demo screens; `demo.js` connects their forms and actions to the APIs.
 
 Figma: https://www.figma.com/design/2d11dRtrHXkw8FQ10YpKx9/Pathways
 

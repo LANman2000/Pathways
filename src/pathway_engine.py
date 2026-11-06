@@ -16,14 +16,20 @@ class PathwayEngine:
 
         if transcript_path:
 
-            profile.transcript_text = parse_transcript(
+            parsed_transcript = parse_transcript(
                 transcript_path
+            )
+            profile.transcript_text = "\n".join(
+                text for text in (profile.transcript_text, parsed_transcript) if text
             )
 
         if resume_path:
 
-            profile.resume_text = parse_resume(
+            parsed_resume = parse_resume(
                 resume_path
+            )
+            profile.resume_text = "\n".join(
+                text for text in (profile.resume_text, parsed_resume) if text
             )
 
         result = self.ai.analyze(profile)
