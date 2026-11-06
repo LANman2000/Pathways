@@ -1,18 +1,26 @@
 # Handles the interaction with the Groq API for generating responses based on prompts.
 import os
 from groq import Groq
+from dotenv import load_dotenv
+
+load_dotenv()
 
 class GroqClient:
 
     def __init__(self):
-        self.client = Groq(
+        
             api_key=os.getenv("GROQ_API_KEY")
-        )
+            if not api_key:
+                raise ValueError(
+                    "GROQ_API_KEY not found in environment variables."
+                )   
+
+            self.client = Groq(api_key=api_key)
 
     def generate(self, prompt):
 
         response = self.client.chat.completions.create(
-            model="llama-3.3-70b-versatile",
+            model="openai/gpt-oss-120b",
             messages=[
                 {
                     "role": "user",
