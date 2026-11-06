@@ -1,8 +1,10 @@
 from flask import Flask
 from flask import request
 from flask import jsonify
+from werkzeug.exceptions import HTTPException
 
 from src.pathway_engine import PathwayEngine
+from src.formatter import InvalidAnalysisResponse
 from src.student_profile import StudentProfile
 
 import os
@@ -17,6 +19,25 @@ UPLOAD_FOLDER = "uploads"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 
+@app.errorhandler(InvalidAnalysisResponse)
+def handle_invalid_analysis_response(_error):
+    return jsonify({
+        "error": "Analysis provider returned an invalid response."
+    }), 502
+
+
+@app.errorhandler(HTTPException)
+def handle_http_error(error):
+    return jsonify({"error": error.description}), error.code
+
+
+@app.errorhandler(Exception)
+def handle_unexpected_error(error):
+    app.logger.exception("Unhandled API error")
+    return jsonify({"error": "Analysis failed. Please try again."}), 500
+
+
+@app.route("/api/analyze", methods=["POST"])
 @app.route("/analyze", methods=["POST"])
 def analyze():
 
