@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>major-open 1 | Pathways</title><style>*{box-sizing:border-box}body{margin:0;background:#f6f8fc;color:#041e42;font:16px/1.5 Inter,system-ui,sans-serif}header{background:#041e42;color:white;padding:18px max(24px,8vw);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}header a{color:white}main{width:min(1216px,calc(100% - 40px));margin:44px auto}h1{font-size:clamp(30px,4vw,46px);line-height:1.12;margin:.3em 0}h2{margin:0 0 8px}p{margin:0 0 16px;color:#465a73}.tag{color:#235fa5;font-size:13px;font-weight:750;letter-spacing:.05em}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}.layout{display:grid;grid-template-columns:240px minmax(0,1fr);gap:20px}.card,aside{background:white;border:1px solid #cbd7e6;border-radius:12px;padding:24px}.soft,aside{background:#eaf2fc}.hero{align-items:center;min-height:65vh}.welcome{background:#041e42}.welcome .intro,.welcome .intro p{color:white}.intro{padding:24px}.intro svg{width:120px;height:120px}.btn,button{display:inline-block;background:#041e42;color:white;border:1px solid #041e42;border-radius:8px;padding:10px 16px;font:inherit;font-weight:650;text-decoration:none;cursor:pointer}.secondary{background:white;color:#041e42;border-color:#687d99}button:disabled{background:#cbd7e6;color:#465a73;border-color:#cbd7e6;cursor:default}.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px;align-items:center}.spacer{margin-left:auto}label{display:block;font-weight:600;margin:12px 0 5px}input:not([type=radio]),textarea,select{display:block;width:100%;font:inherit;padding:10px 12px;border:1px solid #687d99;border-radius:8px;background:white;color:#041e42}textarea{min-height:125px;resize:vertical}.choice{padding:11px;border:1px solid #cbd7e6;border-radius:8px}.choice:has(:checked){background:#eaf2fc;border-color:#041e42}aside ol{padding-left:24px}aside li{padding:7px 0}.current{font-weight:800}.drop{border:1px dashed #687d99;border-radius:8px;background:#eaf2fc;padding:24px;margin:12px 0}progress{width:100%;accent-color:#041e42}.center{max-width:660px;margin:auto}.error{color:#a32732}a{color:#235fa5}a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid #3587db;outline-offset:3px}@media(max-width:720px){.grid,.layout{grid-template-columns:1fr}main{margin:24px auto}.hero{min-height:0}}</style></head>
+<body><header><strong>↗ Pathways</strong><nav aria-label="Main navigation"><a href="00-welcome%202.html">Home</a> · <a href="08-dashboard%201.html">Dashboard</a> · <a href="09-profile%201.html">My profile</a></nav></header><main><div class="layout"><aside><strong>Your career profile</strong><ol><li class="current" aria-current="step">Major</li><li>Interests</li><li>Skills</li><li>Transcript</li><li>Resume &amp; experience</li></ol></aside><section class="card"><p class="tag">STEP 1 OF 5</p><h1>What’s your major?</h1><p>Choose your current major or select Undecided.</p><form data-next="03-interests 2.html"><label for="major">Current major</label><select id="major" name="major" required size="8"><option value="">Select your major</option><option>Aerospace Systems Engineering</option><option>Biomedical Engineering</option><option>Biomedical Science</option><option>Chemical Engineering</option><option>Civil Engineering</option><option>Computer Engineering</option><option>Computer Science</option><option>Electrical Engineering</option><option>Mechanical Engineering</option><option>Mechanical Engineering Technology</option><option>Undecided</option><option>Other major</option></select><div class="actions"><a class="btn secondary" href="00-welcome 2.html">Back</a><button type="submit">Continue</button></div></form></section></div></main><script>const form = document.querySelector('form[data-next]');
+function read(key, storage = sessionStorage) { try { return storage.getItem('pathways.' + key); } catch { return null; } }
+document.querySelectorAll('[data-summary]').forEach(node => {
+  const key = node.dataset.summary;
+  const value = read(key, key === 'savedRole' ? localStorage : sessionStorage);
+  if (value) node.textContent = value;
+});
+if (form) {
+  const allowed = ['major', 'personal', 'academic', 'skill'];
+  [...form.elements].forEach(input => {
+    if (!allowed.includes(input.name)) return;
+    const value = read(input.name);
+    if (value === null) return;
+    if (input.type === 'radio') input.checked = input.value === value;
+    else input.value = value;
+  });
+  form.addEventListener('submit', event => {
+    event.preventDefault();
+    const data = new FormData(form);
+    try {
+      for (const key of allowed) if (data.has(key)) sessionStorage.setItem('pathways.' + key, data.get(key));
+    } catch {}
+    location.href = form.dataset.next;
+  });
+}
+const drop = document.querySelector('[data-drop]');
+const file = drop?.querySelector('input[type=file]');
+if (file) {
+  const status = drop.querySelector('[data-file-status]');
+  function showFile(selected) {
+    if (!selected) { status.textContent = ''; return; }
+    if (!/\.pdf$/i.test(selected.name) || selected.size > 10 * 1024 * 1024) {
+      file.value = '';
+      status.textContent = 'Choose a PDF that is 10 MB or smaller.';
+      return;
+    }
+    status.textContent = 'Selected locally: ' + selected.name + '. Demo files are not uploaded.';
+  }
+  file.addEventListener('change', () => showFile(file.files[0]));
+  drop.addEventListener('dragover', event => event.preventDefault());
+  drop.addEventListener('drop', event => { event.preventDefault(); showFile(event.dataTransfer.files[0]); });
+}</script></body></html>

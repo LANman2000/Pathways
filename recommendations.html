@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Recommendations | Pathways</title>
+<style>
+:root { --navy:#041e42; --surface:#fff; --canvas:#f6f8fc; --highlight:#eaf2fc; --muted:#465a73; --border:#cbd7e6; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--canvas); color:var(--navy); font:16px/1.5 Inter, "Segoe UI", system-ui, sans-serif; }
+.wrap { width:min(1216px, calc(100% - 48px)); margin-inline:auto; }
+header { background:var(--navy); color:white; }
+header .wrap { min-height:76px; display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; padding-block:12px; }
+.brand { display:flex; align-items:center; gap:8px; font-size:24px; font-weight:700; }
+nav { display:flex; flex-wrap:wrap; gap:20px; }
+nav a { color:#d9e8fa; text-decoration:none; }
+nav [aria-current] { color:white; font-weight:700; }
+main { padding-block:36px 70px; }
+h1,h2,h3,p,dl,dd { margin:0; }
+h1 { font-size:clamp(28px,4vw,40px); line-height:1.15; margin:8px 0; }
+h2 { font-size:24px; line-height:1.2; }
+h3 { font-size:17px; }
+.eyebrow { color:#235fa5; font-size:13px; font-weight:700; text-transform:uppercase; }
+.muted,dd { color:var(--muted); }
+.roles { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; margin-top:24px; }
+.role,.details { border:1px solid var(--border); border-radius:12px; padding:20px; background:var(--surface); }
+.role { display:flex; flex-direction:column; gap:8px; font-size:14px; }
+.role.selected { background:var(--highlight); border-color:var(--navy); }
+.role-button { color:inherit; font:inherit; font-weight:700; padding:0; border:0; background:none; text-align:left; cursor:pointer; }
+.role-button:hover { text-decoration:underline; }
+dt { font-weight:700; margin-top:16px; }
+dd { margin-top:3px; min-height:2.7em; }
+.gap { border-top:1px solid var(--border); margin-top:auto; padding-top:12px; }
+.gap p { margin-top:6px; }
+progress { display:block; width:100%; height:10px; margin:10px 0 14px; border:0; border-radius:6px; overflow:hidden; background:var(--border); color:var(--bar); accent-color:var(--bar); }
+progress::-webkit-progress-bar { background:var(--border); }
+progress::-webkit-progress-value { background:var(--bar); border-radius:6px; }
+progress::-moz-progress-bar { background:var(--bar); border-radius:6px; }
+.coverage-1 { --bar:#a32732; } .coverage-2 { --bar:#b77900; } .coverage-3 { --bar:#176148; }
+.note { margin:10px 0 18px; font-size:14px; }
+.details { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:18px; }
+.details h3 { margin-top:8px; }
+.action { display:inline-block; border-radius:8px; padding:10px 16px; background:var(--navy); color:white; border:1px solid var(--navy); font:inherit; font-weight:600; text-decoration:none; cursor:pointer; }
+.outline { margin-top:22px; background:var(--surface); color:var(--navy); border-color:#687d99; }
+:focus-visible { outline:3px solid #235fa5; outline-offset:4px; }
+header a:focus-visible { outline-color:#9cc6f5; }
+@media(max-width:850px) { .roles { grid-template-columns:1fr; } dd { min-height:0; } }
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <div class="brand"><svg width="26" height="26" viewBox="20 20 56 56" fill="none" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M29 68V57c0-7 5-13 12-13h6c8 0 14 6 14 14v5" stroke="#9cc6f5"/><path d="M29 68V57c0-7 5-13 12-13h5c8 0 14-6 14-14v-3M50 36l10-10 10 10" stroke="white"/></svg>Pathways</div>
+  <nav aria-label="Main navigation"><a href="08-dashboard%201.html">Dashboard</a><a href="recommendations.html" aria-current="page">Explore pathways</a><a href="09-profile%201.html">My profile</a></nav>
+</div></header>
+<main class="wrap">
+  <p class="eyebrow">Your recommendations</p>
+  <h1>Compare your top three roles</h1>
+  <p class="muted">Compare job outlook, pay, entry requirements, and your current skills.</p>
+  <div class="roles"><article class="role selected">
+  <p class="eyebrow" data-role-label>Selected role</p>
+  <h2><button class="role-button" type="button" aria-pressed="true">Data Analyst</button></h2>
+  <p class="muted">Find patterns and explain what they mean.</p>
+  <dl>
+    <dt>Job security · U.S. outlook</dt><dd>+12% · 8,000 annual openings</dd>
+    <dt>Recent layoffs · industry, past quarter</dt><dd>Data unavailable</dd>
+    <dt>Estimated annual pay</dt><dd>$55k entry · $78k typical<br>$70k Akron area</dd>
+    <dt>Entry requirements</dt><dd>Bachelor’s often preferred<br>Certifications optional · Portfolio helpful</dd>
+    <dt>Additional time and cost to qualify</dt><dd>6–12 weeks · $0–$250<br>Intro SQL and a portfolio project</dd>
+  </dl>
+  <section class="gap" aria-label="Data Analyst skill gap">
+    <h3>Skill gap</h3>
+    <p><strong>Building starter skills · 2 of 3 skills covered</strong></p>
+    <progress class="coverage-2" value="2" max="3" aria-label="Data Analyst starter skills covered">2 of 3</progress>
+    <p>Covered: Spreadsheets · Data visualization</p>
+    <p><strong>Build next: SQL</strong></p>
+    <p class="muted">Coverage based on reported starter skills.</p>
+  </section>
+</article>
+<article class="role">
+  <p class="eyebrow" data-role-label>Role 2</p>
+  <h2><button class="role-button" type="button" aria-pressed="false">UX Researcher</button></h2>
+  <p class="muted">Study how people use products.</p>
+  <dl>
+    <dt>Job security · U.S. outlook</dt><dd>+7% · 4,000 annual openings</dd>
+    <dt>Recent layoffs · industry, past quarter</dt><dd>Data unavailable</dd>
+    <dt>Estimated annual pay</dt><dd>$58k entry · $82k typical<br>$74k Akron area</dd>
+    <dt>Entry requirements</dt><dd>Bachelor’s often preferred<br>Certifications optional · Research samples helpful</dd>
+    <dt>Additional time and cost to qualify</dt><dd>8–16 weeks · $0–$400<br>Practice interviewing and usability testing</dd>
+  </dl>
+  <section class="gap" aria-label="UX Researcher skill gap">
+    <h3>Skill gap</h3>
+    <p><strong>More practice needed · 1 of 3 skills covered</strong></p>
+    <progress class="coverage-1" value="1" max="3" aria-label="UX Researcher starter skills covered">1 of 3</progress>
+    <p>Covered: Survey design</p>
+    <p><strong>Build next: Interviewing · Usability testing</strong></p>
+    <p class="muted">Coverage based on reported starter skills.</p>
+  </section>
+</article>
+<article class="role">
+  <p class="eyebrow" data-role-label>Role 3</p>
+  <h2><button class="role-button" type="button" aria-pressed="false">Software Developer</button></h2>
+  <p class="muted">Build tools that solve problems.</p>
+  <dl>
+    <dt>Job security · U.S. outlook</dt><dd>+15% · 25,000 annual openings</dd>
+    <dt>Recent layoffs · industry, past quarter</dt><dd>Data unavailable</dd>
+    <dt>Estimated annual pay</dt><dd>$68k entry · $99k typical<br>$87k Akron area</dd>
+    <dt>Entry requirements</dt><dd>Bachelor’s often preferred<br>Certifications optional · Code samples helpful</dd>
+    <dt>Additional time and cost to qualify</dt><dd>4–8 weeks · $0–$200<br>Polish and publish a small coding project</dd>
+  </dl>
+  <section class="gap" aria-label="Software Developer skill gap">
+    <h3>Skill gap</h3>
+    <p><strong>On track · 3 of 3 skills covered</strong></p>
+    <progress class="coverage-3" value="3" max="3" aria-label="Software Developer starter skills covered">3 of 3</progress>
+    <p>Covered: Programming · Version control · Testing</p>
+    <p><strong>Build next: Apply these skills in a project</strong></p>
+    <p class="muted">Coverage based on reported starter skills.</p>
+  </section>
+</article></div>
+  <p class="note muted">Illustrative data for the prototype. Pay, outlook, training costs, and skill coverage are examples.</p>
+  <section class="details" aria-labelledby="selected-title">
+    <div aria-live="polite">
+      <h2 id="selected-title">Data Analyst</h2>
+      <h3>Why this fits</h3><p id="fit">You enjoy finding patterns, use spreadsheets, and want to build a portfolio.</p>
+      <h3>Try it this week</h3><p id="next">Answer one question with a public dataset and share the result in a chart.</p>
+    </div>
+    <button class="action" type="button" id="save" aria-pressed="false">Save pathway</button>
+  </section>
+  <a class="action outline" href="08-dashboard%201.html">Open dashboard</a>
+</main>
+<script>
+const details = [{"name":"Data Analyst","fit":"You enjoy finding patterns, use spreadsheets, and want to build a portfolio.","next":"Answer one question with a public dataset and share the result in a chart."},{"name":"UX Researcher","fit":"You enjoy understanding how people make decisions and have practiced survey design.","next":"Interview two students about a campus service and summarize one recurring problem."},{"name":"Software Developer","fit":"You’ve practiced programming, version control, and testing through your projects.","next":"Build a small tool for a campus need and publish it with a short demo."}];
+const cards = [...document.querySelectorAll('.role')];
+const save = document.querySelector('#save');
+let selected = 0;
+let saved;
+try { saved = localStorage.getItem('pathways.savedRole'); } catch {}
+function updateSave() {
+  const isSaved = saved === details[selected].name;
+  save.textContent = isSaved ? 'Pathway saved' : 'Save pathway';
+  save.setAttribute('aria-pressed', String(isSaved));
+}
+cards.forEach((card, index) => {
+  card.querySelector('button').addEventListener('click', () => {
+    selected = index;
+    cards.forEach((item, position) => {
+      const active = index === position;
+      item.classList.toggle('selected', active);
+      item.querySelector('button').setAttribute('aria-pressed', String(active));
+      item.querySelector('[data-role-label]').textContent = active ? 'Selected role' : 'Role ' + (position + 1);
+    });
+    document.querySelector('#selected-title').textContent = details[index].name;
+    document.querySelector('#fit').textContent = details[index].fit;
+    document.querySelector('#next').textContent = details[index].next;
+    updateSave();
+  });
+});
+save.addEventListener('click', () => {
+  saved = saved === details[selected].name ? null : details[selected].name;
+  try {
+    if (saved) localStorage.setItem('pathways.savedRole', saved);
+    else localStorage.removeItem('pathways.savedRole');
+  } catch {}
+  updateSave();
+});
+updateSave();
+</script>
+</body>
+</html>
+
